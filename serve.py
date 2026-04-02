@@ -186,8 +186,9 @@ class ModelServer:
             if not quiet:
                 chat.system_msg("Waiting for server to be ready...")
 
-            for attempt in range(30):
-                time.sleep(1)
+            attempt = 0
+            while True:
+                time.sleep(2)
                 if self.is_healthy():
                     if not quiet:
                         chat.out(chat.success(f"  Server ready on port {self.port}"))
@@ -200,12 +201,9 @@ class ModelServer:
                         chat.out(f"  Check log: {log_path}")
                     self.process = None
                     return False
-
-            # Timeout waiting for health
-            if not quiet:
-                chat.warning("  Server started but health check not responding after 30s")
-                chat.out(f"  It may still be loading the model. Check: {log_path}")
-            return True  # Process is running, just slow to load
+                attempt += 1
+                if not quiet and attempt % 10 == 0:
+                    chat.system_msg(f"Loading model... ({attempt*2}s)")
 
         except (OSError, subprocess.SubprocessError) as e:
             chat.error_msg(f"Failed to start server: {e}")
