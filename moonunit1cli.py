@@ -100,20 +100,13 @@ def boot():
 
     chat.status_dot(f"Remote ({remote_url.split('/')[2]})", ok=remote_ok)
 
-    # 4. Ephemeral identity — activate axismundi.fun while agent is running
-    import subprocess
-    subprocess.run(["git", "config", "--global", "user.email", "marcus@axismundi.fun"], capture_output=True)
-    chat.status_dot("Identity: marcus@axismundi.fun", ok=True)
     chat.blank()
 
     return remote_ok
 
 
 def teardown():
-    """Restore real identity on exit."""
-    import subprocess
-    subprocess.run(["git", "config", "--global", "user.email", "alxjnz76@gmail.com"], capture_output=True)
-    subprocess.run(["git", "config", "--global", "user.name", "Marcus"], capture_output=True)
+    pass
 
 
 # ============================================================
