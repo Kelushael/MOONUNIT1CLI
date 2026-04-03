@@ -2,7 +2,7 @@
 """
 sovereign-agent/tool_registry.py
 Manages built-in + dynamic tools. Self-extending protocol.
-Dynamic tools stored as Python files in ~/.moonunit2/tools/
+Dynamic tools stored as Python files in ~/.moonunit1/tools/
 """
 
 import os
@@ -11,7 +11,7 @@ import importlib.util
 from pathlib import Path
 from datetime import datetime
 
-TOOLS_DIR = Path.home() / ".moonunit2" / "tools"
+TOOLS_DIR = Path.home() / ".moonunit1" / "tools"
 
 
 def ensure_tools_dir():

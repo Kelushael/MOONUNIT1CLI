@@ -2,7 +2,7 @@
 """
 sovereign-agent/memory.py
 Persistent memory system. Key-value store backed by JSON files.
-Stored at ~/.moonunit2/memory/
+Stored at ~/.moonunit1/memory/
 Each memory is {key}.json with {key, value, created, updated}.
 Memories persist across sessions and restarts.
 """
@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-MEMORY_DIR = Path.home() / ".moonunit2" / "memory"
+MEMORY_DIR = Path.home() / ".moonunit1" / "memory"
 
 
 def _ensure_dir():
