@@ -24,10 +24,12 @@ MODELS_DIR   = Path.home() / "models"
 DEFAULT_MODEL = MODELS_DIR / "current.gguf"
 CODER_MODEL  = MODELS_DIR / "coder.gguf"
 
-ORANGE = chat.NEON_ORANGE
-RESET  = chat.RESET
-DIM    = chat.DIM
-BOLD   = chat.BOLD
+PRIMARY = chat.NEON_GREEN
+ACCENT  = chat.BLACK
+BG      = chat.BG_BLACK
+RESET   = chat.RESET
+DIM     = chat.DIM
+BOLD    = chat.BOLD
 
 
 # ============================================================
@@ -36,24 +38,37 @@ BOLD   = chat.BOLD
 
 FRAMES = [
     r"""
-     ___  ___                   _   _       _ _   ___
-    |   \/   |                 | | | |     (_) | |_  |
-    | |\  /| | ___   ___  _ __ | | | |_ __  _| |_  | |
-    | | \/ | |/ _ \ / _ \| '_ \| | | | '_ \| | __| | |
-    | |    | | (_) | (_) | | | | |_| | | | | | |_ _| |
-    |_|    |_|\___/ \___/|_| |_|\___/|_| |_|_|\__|___|
+              .  *  .    *
+        *  .    _____     .  *
+      .       /       \
+         *   |  O   O  |   .
+      .      |    __   |  *
+        .     \       /
+      *   . ___\_____/___
+         /   ~~~~~~~~~~   \
+    ~~~~~ ~~~ LUNAR SURFACE ~~~~
     """,
     r"""
-    ╔╦╗╔═╗╔═╗╔╗╔╦ ╦╔╗╔╦╔╦╗╔═╗
-    ║║║║ ║║ ║║║║║ ║║║║║ ║ ╠╣
-    ╩ ╩╚═╝╚═╝╝╚╝╚═╝╝╚╝╩ ╩ ╚═╝
-         SOVEREIGN AGENT
+                 /\
+                /  \
+               / || \
+              / |  | \
+             /  |  |  \
+            /   |  |   \
+           /____|  |____\
+               /|  |\
+              / |  | \
+             /  ~~~~  \
+            /__________\
+              | |  | |
+              |_|  |_|
+          ~~~~LIFTOFF!~~~~
     """,
     r"""
-    +-+-+-+-+-+-+-+-+-+
-    |M|O|O|N|U|N|I|T|1|
-    +-+-+-+-+-+-+-+-+-+
-     S O V E R E I G N
+    ╔╦╗╔═╗╔═╗╔╗╔╦ ╦╔╗╔╦╔╦╗  ╔═╗╔╗╔╔═╗
+    ║║║�� ║║ ║║║║║ ║║║║║ ║   ║ ║║║║║╣
+    ╩ ╩╚═╝╚═╝╝╚╝╚═╝╝╚╝╩ ╩   ╚═╝╝╚╝╚═╝
+            S O V E R E I G N
     """,
 ]
 
@@ -63,23 +78,23 @@ LOADING_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇",
 def _play_launch_sequence(server_ready_event):
     """Play ASCII art while model loads in background."""
 
-    # Frame 1
+    # Frame 1 — lime green on black
     for line in FRAMES[0].split("\n"):
-        print(f"{ORANGE}{line}{RESET}", flush=True)
+        print(f"{BG}{PRIMARY}{line}{RESET}", flush=True)
         time.sleep(0.04)
 
     time.sleep(0.3)
 
     # Frame 2
     for line in FRAMES[1].split("\n"):
-        print(f"{BOLD}{ORANGE}{line}{RESET}", flush=True)
+        print(f"{BG}{BOLD}{PRIMARY}{line}{RESET}", flush=True)
         time.sleep(0.06)
 
     time.sleep(0.3)
 
     # Frame 3
     for line in FRAMES[2].split("\n"):
-        print(f"{ORANGE}{line}{RESET}", flush=True)
+        print(f"{BG}{PRIMARY}{line}{RESET}", flush=True)
         time.sleep(0.08)
 
     time.sleep(0.4)
@@ -88,12 +103,12 @@ def _play_launch_sequence(server_ready_event):
     spin_i = 0
     while not server_ready_event.is_set():
         spinner = LOADING_FRAMES[spin_i % len(LOADING_FRAMES)]
-        print(f"\r  {ORANGE}{spinner}{RESET}  {DIM}loading model...{RESET}", end="", flush=True)
+        print(f"\r  {PRIMARY}{spinner}{RESET}  {DIM}loading model...{RESET}", end="", flush=True)
         spin_i += 1
         time.sleep(0.1)
 
     # Clear spinner line
-    print(f"\r  {chat.NEON_GREEN}✓{RESET}  model ready{' ' * 20}", flush=True)
+    print(f"\r  {PRIMARY}✓{RESET}  model ready{' ' * 20}", flush=True)
 
 
 # ============================================================
